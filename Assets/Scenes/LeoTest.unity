@@ -1391,6 +1391,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7206224765424954656, guid: a18c1ecaa1e4d0940a42f285cff927cd, type: 3}
+      propertyPath: attackBufferTime
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7206224765424954656, guid: a18c1ecaa1e4d0940a42f285cff927cd, type: 3}
+      propertyPath: attackComboMaxTime
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7206224765424954656, guid: a18c1ecaa1e4d0940a42f285cff927cd, type: 3}
+      propertyPath: attackCooldownTime
+      value: 0.3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
