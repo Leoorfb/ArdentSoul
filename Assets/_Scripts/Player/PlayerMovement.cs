@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] float movementSpeed = 5f;
     [SerializeField] float rollSpeed = 8f;
-    [SerializeField] bool isGrounded = true;
+    public bool isGrounded = true;
     [SerializeField] bool isFacingLeft = false;
 
     private Vector2 moveDirection = Vector2.zero;
@@ -67,7 +67,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
         GroundedCheck();
 
         coyoteTimeCounter = isGrounded ? coyoteTime : coyoteTimeCounter -= Time.deltaTime;
@@ -78,11 +78,12 @@ public class PlayerMovement : MonoBehaviour
         }
 
         moveDirection.x = moveInput.ReadValue<Vector2>().x * movementSpeed;
-        isFacingLeft = moveDirection.x < 0;
-        _spriteRenderer.flipX = isFacingLeft;
+
+        SetFacingDirection();
 
         SetAnimation();
     }
+
     private void FixedUpdate()
     {
         moveDirection.y = _rigidbody.velocity.y;
@@ -103,6 +104,15 @@ public class PlayerMovement : MonoBehaviour
 
         if (wasGrounded != isGrounded)
             _animator.SetBool("Grounded", isGrounded);
+    }
+    private void SetFacingDirection()
+    {
+        if (moveDirection.x < 0)
+            isFacingLeft = true;
+        else if (moveDirection.x > 0)
+            isFacingLeft = false;
+
+        _spriteRenderer.flipX = isFacingLeft;
     }
 
     private void JumpBuffer(InputAction.CallbackContext context)
