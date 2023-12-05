@@ -32,6 +32,7 @@ public class Sound
 public class AudioManager : Singleton<AudioManager>
 {
     public Sound[] sounds;
+    Sound currentMusic;
 
     public float mainVolume = 1;
     public float musicVolume = 1;
@@ -63,6 +64,14 @@ public class AudioManager : Singleton<AudioManager>
         }
         else
             sound.source.PlayOneShot(sound.clip);
+
+        if (sound.type == SoundType.Music)
+        {
+            if (currentMusic != null)
+                currentMusic.source.Stop();
+
+            currentMusic = sound;
+        }
     }
 
     public void Stop(string name)

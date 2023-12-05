@@ -5,17 +5,24 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "PlayerData")]
 public class PlayerData : ScriptableObject
 {
-    [SerializeField] private int hp = 5;
+    [Header("Health Data")]
+    [SerializeField] private int _maxHealth = 5;
+    int _health = 5;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [Header("Movement Data")]
+    [SerializeField] float _movementSpeed = 5f;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [SerializeField] float _jumpForce = 5f;
+
+    [Header("Combat Data")]
+    [SerializeField] int _attackDamage = 1;
+
+    //getters e setters
+    public int maxHealth { get { return _maxHealth; } set { _maxHealth = value; } }
+    public int health { get { return _health; } set { _health = value; } }
+
+    public float movementSpeed { get { return _movementSpeed; } set { _movementSpeed = value; } }
+    public float jumpForce { get { return _jumpForce; } set { _jumpForce = value; } }
+
+    public int attackDamage { get { return _attackDamage; } set { _attackDamage = value; } }
 }
