@@ -8,7 +8,7 @@ public class PlayerFallState : PlayerStateBase
 {
     public override void TryEnterState()
     {
-        if (player.moveDirectionY < 0)
+        if (!player.isGrounded && player.moveDirectionY < 0)
         {
             _context.SwitchState("Fall");
         }

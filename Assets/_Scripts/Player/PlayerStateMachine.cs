@@ -11,6 +11,8 @@ public class PlayerStateMachine : StateManager
     [SerializeField] PlayerBlockState _playerBlockState;
     [SerializeField] PlayerJumpState _playerJumpState;
     [SerializeField] PlayerFallState _playerFallState;
+    [SerializeField] PlayerHurtState _playerHurtState;
+    [SerializeField] PlayerDeathState _playerDeathState;
 
 
     private InputAction _moveInput;
@@ -29,6 +31,8 @@ public class PlayerStateMachine : StateManager
     public PlayerBlockState playerBlockState { get { return _playerBlockState; } protected set { _playerBlockState = value; } }
     public PlayerJumpState playerJumpState { get { return _playerJumpState; } protected set { _playerJumpState = value; } }
     public PlayerFallState playerFallState { get { return _playerFallState; } protected set { _playerFallState = value; } }
+    public PlayerHurtState playerHurtState { get { return _playerHurtState; } protected set { _playerHurtState = value; } }
+    public PlayerDeathState playerDeathState { get { return _playerDeathState; } protected set { _playerDeathState = value; } }
 
     public Player player { get { return _player; } protected set { _player = value; } }
     public InputAction moveInput { get { return _moveInput; } protected set { _moveInput = value; } }
@@ -45,6 +49,8 @@ public class PlayerStateMachine : StateManager
         _playerBlockState.SetUpState(this);
         _playerJumpState.SetUpState(this);
         _playerFallState.SetUpState(this);
+        _playerHurtState.SetUpState(this);
+        _playerDeathState.SetUpState(this);
 
         states.Add("Idle", _playerIdleState);
         states.Add("Walk", _playerWalkState);
@@ -52,6 +58,8 @@ public class PlayerStateMachine : StateManager
         states.Add("Block", _playerBlockState);
         states.Add("Jump", _playerJumpState);
         states.Add("Fall", _playerFallState);
+        states.Add("Hurt", _playerHurtState);
+        states.Add("Death", _playerDeathState);
 
         currentState = states["Idle"];
     }
@@ -70,20 +78,20 @@ public class PlayerStateMachine : StateManager
         jumpInput = _player.playerInputActions.Player.Jump;
         jumpInput.Enable();
 
-        jumpInput.performed += _playerJumpState.JumpBuffer;
-        jumpInput.canceled += _playerJumpState.JumpRelease;
+        jumpInput.performed += playerJumpState.JumpBuffer;
+        jumpInput.canceled += playerJumpState.JumpRelease;
 
         
         _attackInput = _player.playerInputActions.Player.Attack;
         _attackInput.Enable();
-        _attackInput.performed += _playerAttackState.AttackBuffer;
+        _attackInput.performed += playerAttackState.AttackBuffer;
         
         _blockInput = _player.playerInputActions.Player.Block;
         _blockInput.Enable();
-        /*
-        blockInput.performed += StartBlock;
-        blockInput.canceled += StopBlock;
-        */
+        
+        _blockInput.performed += playerBlockState.SetBlockInputOn;
+        _blockInput.canceled += playerBlockState.SetBlockInputOff;
+        
     }
 
     private void OnDisable()
@@ -103,6 +111,19 @@ public class PlayerStateMachine : StateManager
 
     private void OnAttackAnimationEnd()
     {
-        playerAttackState.OnAttackAnimationEnd();
+        playerAttackState.OnAnimationEnd();
+    }
+
+    private void OnHurtAnimationEnd()
+    {
+        playerHurtState.OnAnimationEnd();
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (playerBlockState.blockLayer ==  (1 << collision.gameObject.layer))
+        {
+            playerBlockState.Block(collision);
+        }
     }
 }

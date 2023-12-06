@@ -19,7 +19,7 @@ public class PlayerAttackState : PlayerStateBase
     private bool _canAttack = true;
 
     private int _attackComboIndex = 0; // 0 = não esta em um combo
-    private bool _hasAttackAnimationEnded = false;
+    private bool _hasAttackAnimationEnded = true;
 
 
     [SerializeField] Color gizmosColor = Color.white;
@@ -50,7 +50,7 @@ public class PlayerAttackState : PlayerStateBase
 
     public override void CheckExitCondition()
     {
-        if (_hasAttackAnimationEnded == false)
+        if (_hasAttackAnimationEnded == true)
         {
             _context.SwitchState("Idle");
         }
@@ -63,6 +63,7 @@ public class PlayerAttackState : PlayerStateBase
 
     public override void ExitState()
     {
+        _hasAttackAnimationEnded = true;
     }
 
     public override void UpdateState()
@@ -72,7 +73,7 @@ public class PlayerAttackState : PlayerStateBase
 
     private void Attack()
     {
-        _hasAttackAnimationEnded = true;
+        _hasAttackAnimationEnded = false;
         _attackBufferCounter = 0f;
 
         Collider2D[] hitEnemies = null;
@@ -117,9 +118,9 @@ public class PlayerAttackState : PlayerStateBase
     }
 
     // Função chamada no fim da animação de ataque por um animation event
-    public void OnAttackAnimationEnd()
+    public void OnAnimationEnd()
     {
-        _hasAttackAnimationEnded = false;
+        _hasAttackAnimationEnded = true;
         _lastAttackCounter = 0;
     }
 
@@ -130,7 +131,7 @@ public class PlayerAttackState : PlayerStateBase
 
     private void ComboEndCheck()
     {
-        if (!_hasAttackAnimationEnded && _attackComboIndex != 0 && _lastAttackCounter > _attackComboMaxTime)
+        if (_hasAttackAnimationEnded && _attackComboIndex != 0 && _lastAttackCounter > _attackComboMaxTime)
         {
             _attackComboIndex = 0;
             //Debug.Log("Combo acabou");
@@ -139,7 +140,7 @@ public class PlayerAttackState : PlayerStateBase
 
     private void CanAttackCheck()
     {
-        if (_hasAttackAnimationEnded)
+        if (!_hasAttackAnimationEnded)
         {
             _canAttack = false;
             return;

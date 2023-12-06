@@ -6,17 +6,23 @@ using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
+    [Header("Player Data")]
     [SerializeField] PlayerData _playerData;
 
-    public bool isGrounded = true;
+    [Header("Direction")]
     [SerializeField] bool isFacingLeft = false;
-
     private Vector2 _moveDirection = Vector2.zero;
     private float _moveRotation = 0;
 
+    [Header("Invulnerability Time")]
+    [SerializeField] float invulnerabilityTime = 0.5f;
+    float invulnerabilityCounter = 0;
+    bool isInvulnerable = false;
 
 
     [Header("Ground Check")]
+
+    public bool isGrounded = true;
     [SerializeField] bool displayGismoz = false;
     [SerializeField] Transform groundCheckPosition;
     [SerializeField] Vector2 groundCheckSize;
@@ -27,6 +33,7 @@ public class Player : MonoBehaviour
     Rigidbody2D _rigidbody2d;
     Animator _animator;
     SpriteRenderer _spriteRenderer;
+    PlayerStateMachine _playerStateMachine;
 
 
     #region getters e setters
@@ -46,21 +53,21 @@ public class Player : MonoBehaviour
         _animator = GetComponent<Animator>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
         playerInputActions = new PlayerInputActions();
+        _playerStateMachine = GetComponent<PlayerStateMachine>();
     }
 
     private void Update()
     {
         GroundedCheck();
         SetFacingDirection();
+        HandleInvulnerability();
     }
-
 
     private void FixedUpdate()
     {
         moveDirectionY = _rigidbody2d.velocity.y;
         _rigidbody2d.velocity = moveDirection;
     }
-
     
 
     private void OnDrawGizmos()
@@ -72,7 +79,18 @@ public class Player : MonoBehaviour
 
     internal void TakeDamage(int damage)
     {
+        if (isInvulnerable || playerData.health <= 0)
+        {
+            return;
+        }
+
         playerData.health -= damage;
+        isInvulnerable = true;
+        invulnerabilityCounter = 0;
+        if (playerData.health > 0)
+            _playerStateMachine.SwitchState("Hurt");
+        else
+            _playerStateMachine.SwitchState("Death");
     }
 
     private void GroundedCheck()
@@ -94,5 +112,17 @@ public class Player : MonoBehaviour
         //_spriteRenderer.flipX = isFacingLeft;
         _moveRotation = isFacingLeft? 180: 0f;
         transform.rotation = Quaternion.Euler(0, _moveRotation, 0);
+    }
+
+    private void HandleInvulnerability()
+    {
+        if (isInvulnerable)
+        {
+            invulnerabilityCounter += Time.deltaTime;
+            if (invulnerabilityCounter >= invulnerabilityTime)
+            {
+                isInvulnerable = false;
+            }
+        }
     }
 }

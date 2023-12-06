@@ -58,6 +58,9 @@ public class FireAttackState : EnemyBaseState
 
     public void FireProjectile()
     {
-        Debug.Log("ATIRA");
+        GameObject projectile = GameObject.Instantiate(projectilePrefab, projectileSpawnPosition.position, projectileSpawnPosition.rotation);
+        EnemyProjectile enemyProjectile = projectile.GetComponent<EnemyProjectile>();
+        enemyProjectile.moveDirection = _context.enemy.isFacingRight ? Vector2.right : Vector2.left;
+        enemyProjectile.damage = _context.enemy.damage;
     }
 }

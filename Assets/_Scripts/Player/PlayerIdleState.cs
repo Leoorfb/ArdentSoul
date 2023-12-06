@@ -11,6 +11,9 @@ public class PlayerIdleState : PlayerStateBase
         _context.playerAttackState.TryEnterState();
         if (_context.isSwitchingStates) return;
 
+        _context.playerBlockState.TryEnterState();
+        if (_context.isSwitchingStates) return;
+
         _context.playerJumpState.TryEnterState();
         if (_context.isSwitchingStates) return;
 

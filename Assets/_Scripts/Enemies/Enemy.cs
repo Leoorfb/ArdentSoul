@@ -54,7 +54,8 @@ public abstract class Enemy : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.layer == playerLayer)
+        
+        if (playerLayer == (1 << collision.gameObject.layer))
         {
             OnTouchPlayer(collision.gameObject.GetComponent<Player>());
         }
@@ -62,6 +63,9 @@ public abstract class Enemy : MonoBehaviour
 
     public virtual void OnTouchPlayer(Player player)
     {
+        if (health <= 0) 
+            return;
+
         player.TakeDamage(damage);
     }
 }

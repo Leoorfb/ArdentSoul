@@ -2,27 +2,60 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [Serializable]
 public class PlayerBlockState : PlayerStateBase
 {
+    public bool isBlockInputOn = false;
+    public bool isBlocking = false;
+    public LayerMask blockLayer;
+
     public override void CheckExitCondition()
     {
-        throw new NotImplementedException();
+        if (!isBlockInputOn)
+            _context.SwitchState();
     }
 
     public override void EnterState()
     {
-        throw new NotImplementedException();
+        player.animator.SetBool("IdleBlock", true);
+        isBlocking = true;
     }
 
     public override void ExitState()
     {
-        throw new NotImplementedException();
+        player.animator.SetBool("IdleBlock", false);
+        isBlocking = false;
     }
 
     public override void UpdateState()
     {
-        throw new NotImplementedException();
+        CheckExitCondition();
+    }
+
+    public override void TryEnterState()
+    {
+        if (isBlockInputOn)
+            _context.SwitchState("Block");
+    }
+
+    public void Block(Collider2D collision)
+    {
+        if (isBlocking)
+        {
+            player.animator.SetTrigger("Block");
+            GameObject.Destroy(collision.gameObject);
+        }
+    }
+
+    public void SetBlockInputOn(InputAction.CallbackContext obj)
+    {
+        isBlockInputOn = true;
+    }
+
+    public void SetBlockInputOff(InputAction.CallbackContext obj)
+    {
+        isBlockInputOn = false;
     }
 }

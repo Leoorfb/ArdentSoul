@@ -11,6 +11,9 @@ public class PlayerWalkState : PlayerStateBase
         _context.playerFallState.TryEnterState();
         if (_context.isSwitchingStates) return;
 
+        _context.playerBlockState.TryEnterState();
+        if (_context.isSwitchingStates) return;
+
         _context.playerAttackState.TryEnterState();
         if (_context.isSwitchingStates) return;
 
