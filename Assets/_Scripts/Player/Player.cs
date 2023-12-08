@@ -10,15 +10,17 @@ public class Player : MonoBehaviour
     [SerializeField] PlayerData _playerData;
 
     [Header("Direction")]
-    [SerializeField] bool isFacingLeft = false;
-    private Vector2 _moveDirection = Vector2.zero;
+    [SerializeField] bool _isFacingLeft = false;
+    public Vector2 moveDirection = Vector2.zero;
     private float _moveRotation = 0;
 
     [Header("Invulnerability Time")]
     [SerializeField] float invulnerabilityTime = 0.5f;
     float invulnerabilityCounter = 0;
-    bool isInvulnerable = false;
+    bool _isInvulnerable = false;
 
+    [Header("Hit Force")]
+    [SerializeField] float hitKnockbackForce = 3f;
 
     [Header("Ground Check")]
 
@@ -38,9 +40,10 @@ public class Player : MonoBehaviour
 
     #region getters e setters
     public PlayerData playerData { get { return _playerData; } protected set { _playerData = value; } }
-    public Vector2 moveDirection { get { return _moveDirection; } set { _moveDirection = value; } }
-    public float moveDirectionX { get { return _moveDirection.x; } set { _moveDirection.x = value; } }
-    public float moveDirectionY { get { return _moveDirection.y; } set { _moveDirection.y = value; } }
+    public float moveDirectionX { get { return moveDirection.x; } set { moveDirection.x = value; } }
+    public float moveDirectionY { get { return moveDirection.y; } set { moveDirection.y = value; } }
+    public bool isInvulnerable { get { return _isInvulnerable; } private set { _isInvulnerable = value; } }
+    public bool isFacingLeft { get { return _isFacingLeft; } private set { _isFacingLeft = value; } }
 
     public Rigidbody2D rigidbody2d { get { return _rigidbody2d; }}
     public Animator animator { get { return _animator; }}
@@ -69,7 +72,7 @@ public class Player : MonoBehaviour
         _rigidbody2d.velocity = moveDirection;
     }
     
-
+    // debug gizmos
     private void OnDrawGizmos()
     {
         if (!displayGismoz) return;
@@ -77,22 +80,32 @@ public class Player : MonoBehaviour
         Gizmos.DrawCube(groundCheckPosition.position, groundCheckSize);
     }
 
-    internal void TakeDamage(int damage)
+    internal void TakeDamage(int damage, float sourceXPosition)
     {
-        if (isInvulnerable || playerData.health <= 0)
+        // check vulnerability
+        if (_isInvulnerable || playerData.health <= 0)
         {
             return;
         }
 
+        // change values
         playerData.health -= damage;
-        isInvulnerable = true;
+        _isInvulnerable = true;
         invulnerabilityCounter = 0;
+
+        // knockback
+        moveDirectionY = hitKnockbackForce;
+        moveDirectionX = sourceXPosition > transform.position.x ? -hitKnockbackForce : hitKnockbackForce;
+        _rigidbody2d.velocity = moveDirection;
+
+        // set state
         if (playerData.health > 0)
             _playerStateMachine.SwitchState("Hurt");
         else
             _playerStateMachine.SwitchState("Death");
     }
 
+    // check if is grounded
     private void GroundedCheck()
     {
         bool wasGrounded = isGrounded;
@@ -102,26 +115,31 @@ public class Player : MonoBehaviour
             _animator.SetBool("Grounded", isGrounded);
     }
 
+    // set facing direction based on movement direction
     private void SetFacingDirection()
     {
-        if (moveDirection.x < 0)
-            isFacingLeft = true;
-        else if (moveDirection.x > 0)
-            isFacingLeft = false;
+        if (_playerStateMachine.playerCurrentState == _playerStateMachine.playerHurtState)
+            return;
+
+        if (moveDirectionX < 0)
+            _isFacingLeft = true;
+        else if (moveDirectionX > 0)
+            _isFacingLeft = false;
 
         //_spriteRenderer.flipX = isFacingLeft;
-        _moveRotation = isFacingLeft? 180: 0f;
+        _moveRotation = _isFacingLeft? 180: 0f;
         transform.rotation = Quaternion.Euler(0, _moveRotation, 0);
     }
 
+    // handle invulnerability timer
     private void HandleInvulnerability()
     {
-        if (isInvulnerable)
+        if (_isInvulnerable)
         {
             invulnerabilityCounter += Time.deltaTime;
             if (invulnerabilityCounter >= invulnerabilityTime)
             {
-                isInvulnerable = false;
+                _isInvulnerable = false;
             }
         }
     }

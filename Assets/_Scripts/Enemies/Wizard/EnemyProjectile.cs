@@ -50,7 +50,7 @@ public class EnemyProjectile : MonoBehaviour
 
     public virtual void OnTouchPlayer(Player player)
     {
-        player.TakeDamage(damage);
+        player.TakeDamage(damage, transform.position.x);
         Destroy(gameObject);
     }
 }

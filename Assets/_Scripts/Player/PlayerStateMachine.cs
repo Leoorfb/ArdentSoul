@@ -13,10 +13,12 @@ public class PlayerStateMachine : StateManager
     [SerializeField] PlayerFallState _playerFallState;
     [SerializeField] PlayerHurtState _playerHurtState;
     [SerializeField] PlayerDeathState _playerDeathState;
+    [SerializeField] PlayerRollState _playerRollState;
 
 
     private InputAction _moveInput;
     private InputAction _jumpInput;
+    private InputAction _rollInput;
 
     private InputAction _attackInput;
     private InputAction _blockInput;
@@ -25,6 +27,7 @@ public class PlayerStateMachine : StateManager
 
 
     #region getters e setters
+    public BaseState playerCurrentState { get { return currentState; } protected set { currentState = value; } }
     public PlayerIdleState playerIdleState { get { return _playerIdleState; } protected set { _playerIdleState = value; } }
     public PlayerWalkState playerWalkState { get { return _playerWalkState; } protected set { _playerWalkState = value; } }
     public PlayerAttackState playerAttackState { get { return _playerAttackState; } protected set { _playerAttackState = value; } }
@@ -33,6 +36,7 @@ public class PlayerStateMachine : StateManager
     public PlayerFallState playerFallState { get { return _playerFallState; } protected set { _playerFallState = value; } }
     public PlayerHurtState playerHurtState { get { return _playerHurtState; } protected set { _playerHurtState = value; } }
     public PlayerDeathState playerDeathState { get { return _playerDeathState; } protected set { _playerDeathState = value; } }
+    public PlayerRollState playerRollState { get { return _playerRollState; } protected set { _playerRollState = value; } }
 
     public Player player { get { return _player; } protected set { _player = value; } }
     public InputAction moveInput { get { return _moveInput; } protected set { _moveInput = value; } }
@@ -51,6 +55,7 @@ public class PlayerStateMachine : StateManager
         _playerFallState.SetUpState(this);
         _playerHurtState.SetUpState(this);
         _playerDeathState.SetUpState(this);
+        _playerRollState.SetUpState(this);
 
         states.Add("Idle", _playerIdleState);
         states.Add("Walk", _playerWalkState);
@@ -60,13 +65,16 @@ public class PlayerStateMachine : StateManager
         states.Add("Fall", _playerFallState);
         states.Add("Hurt", _playerHurtState);
         states.Add("Death", _playerDeathState);
+        states.Add("Roll", _playerRollState);
 
         currentState = states["Idle"];
     }
 
     protected override void Update()
     {
-        player.moveDirectionX = 0;
+        if(currentState != playerHurtState)
+            player.moveDirectionX = 0;
+
         base.Update();
     }
 
@@ -77,18 +85,19 @@ public class PlayerStateMachine : StateManager
 
         jumpInput = _player.playerInputActions.Player.Jump;
         jumpInput.Enable();
-
         jumpInput.performed += playerJumpState.JumpBuffer;
         jumpInput.canceled += playerJumpState.JumpRelease;
 
-        
+        _rollInput = _player.playerInputActions.Player.Roll;
+        _rollInput.Enable();
+        _rollInput.performed += playerRollState.RollBuffer;
+
         _attackInput = _player.playerInputActions.Player.Attack;
         _attackInput.Enable();
         _attackInput.performed += playerAttackState.AttackBuffer;
         
         _blockInput = _player.playerInputActions.Player.Block;
         _blockInput.Enable();
-        
         _blockInput.performed += playerBlockState.SetBlockInputOn;
         _blockInput.canceled += playerBlockState.SetBlockInputOff;
         
@@ -98,6 +107,7 @@ public class PlayerStateMachine : StateManager
     {
         moveInput.Disable();
         jumpInput.Disable();
+        _rollInput.Disable();
 
         _attackInput.Disable();
         _blockInput.Disable();
@@ -117,6 +127,10 @@ public class PlayerStateMachine : StateManager
     private void OnHurtAnimationEnd()
     {
         playerHurtState.OnAnimationEnd();
+    }
+    private void OnRollAnimationEnd()
+    {
+        playerRollState.OnAnimationEnd();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

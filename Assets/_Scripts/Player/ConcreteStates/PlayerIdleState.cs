@@ -8,10 +8,13 @@ public class PlayerIdleState : PlayerStateBase
 {
     public override void CheckExitCondition()
     {
-        _context.playerAttackState.TryEnterState();
+        _context.playerRollState.TryEnterState();
         if (_context.isSwitchingStates) return;
 
         _context.playerBlockState.TryEnterState();
+        if (_context.isSwitchingStates) return;
+
+        _context.playerAttackState.TryEnterState();
         if (_context.isSwitchingStates) return;
 
         _context.playerJumpState.TryEnterState();
