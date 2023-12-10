@@ -7,7 +7,7 @@ public abstract class StateManager : MonoBehaviour
 {
     protected Dictionary<string, BaseState> _states = new Dictionary<string,BaseState>();
     protected BaseState currentState;
-    protected string currentStateKey; // para debug
+    public string currentStateKey; // para debug
 
     protected BaseState baseState;
     protected bool _isSwitchingStates = false;

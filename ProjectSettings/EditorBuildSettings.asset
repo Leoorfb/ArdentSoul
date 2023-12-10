@@ -5,7 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 90ecfe42101c6a644aa348c6e05badec
+  - enabled: 1
+    path: Assets/Scenes/LeoTest.unity
+    guid: d5858b4bf9468ae48b4a32351f52b314
   m_configObjects: {}

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Player : MonoBehaviour
+public class Player : Singleton<Player>
 {
     [Header("Player Data")]
     [SerializeField] PlayerData _playerData;
@@ -50,8 +50,9 @@ public class Player : MonoBehaviour
 
     #endregion
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         _rigidbody2d = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
