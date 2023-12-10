@@ -13,6 +13,7 @@ public class DieState : EnemyBaseState
 
     public override void EnterState()
     {
+        _context.enemy.isInvulnerable = true;
         deathDestroyCounter = 0f;
         _context.enemy.animator.SetTrigger("Death");
     }

@@ -13,4 +13,17 @@ public class EnemyStateMachine : StateManager
     {
         enemy = GetComponent<Enemy>();
     }
+
+    public float distanceToPlayer(out int direction)
+    {
+        float distance = Player.Instance.transform.position.x - transform.position.x;
+        direction = distance > 0 ? 1 : -1;
+        return Mathf.Abs(distance);
+    }
+
+    public float distanceToPlayer()
+    {
+        int direction;
+        return distanceToPlayer(out direction);
+    }
 }

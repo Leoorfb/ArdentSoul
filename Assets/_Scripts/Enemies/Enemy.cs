@@ -12,12 +12,14 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] protected float _moveSpeed = 5f;
     [SerializeField] protected Vector2 _initialPosition = Vector2.zero;
 
+    public bool isInvulnerable = false;
+
     protected bool _isFacingRight = false;
     protected Vector2 _moveDirection = Vector2.zero;
 
     protected Rigidbody2D _rigidbody2D;
     protected SpriteRenderer _spriteRenderer;
-    protected Animator _animator;
+    [SerializeField] protected Animator _animator;
     protected EnemyStateMachine _stateMachine;
 
     public int damage { get { return _damage; } protected set { _damage = value; } }
@@ -44,8 +46,10 @@ public abstract class Enemy : MonoBehaviour
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
-        _animator = GetComponent<Animator>();
         _stateMachine = GetComponent<EnemyStateMachine>();
+
+        if (_animator == null)
+            _animator = GetComponent<Animator>();
 
         _initialPosition = transform.position;
     }
