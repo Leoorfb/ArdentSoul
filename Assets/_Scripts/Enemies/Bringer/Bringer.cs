@@ -26,6 +26,7 @@ public class Bringer : Enemy
         if (health <= 0)
         {
             _stateMachine.SwitchState("Die");
+            GameUI.Instance.OnPlayerWin();
             return;
         }
 

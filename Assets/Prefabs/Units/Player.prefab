@@ -103,7 +103,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5776638636292205600}
   - component: {fileID: 6697754628875809032}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ShieldTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -259,7 +259,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerData: {fileID: 11400000, guid: 92716bef830a8c34698e24c8cff76ab9, type: 2}
-  isFacingLeft: 0
+  _isFacingLeft: 0
   moveDirection: {x: 0, y: 0}
   invulnerabilityTime: 0.5
   hitKnockbackForce: 3
@@ -282,6 +282,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45aaa200758526646b787e534ea0506b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentStateKey: 
   _playerAttackState:
     enemyLayers:
       serializedVersion: 2
@@ -308,6 +309,10 @@ MonoBehaviour:
   _playerJumpState:
     _coyoteTime: 0.2
     _jumpBufferTime: 0.2
+  _playerRollState:
+    rollSpeed: 8
+    _rollBufferTime: 0.2
+    _rollCooldownTime: 0.5
 --- !u!95 &7186987382267466698
 Animator:
   serializedVersion: 5
@@ -369,7 +374,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 4
   m_Sprite: {fileID: 21300000, guid: ae297123f091bbf4e8f1835eb98fb293, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

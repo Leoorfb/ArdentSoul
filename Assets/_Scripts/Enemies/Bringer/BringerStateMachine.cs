@@ -14,6 +14,7 @@ public class BringerStateMachine : EnemyStateMachine
     [SerializeField] AttackState _attackState;
     [SerializeField] GetHurtState _getHurtState;
     [SerializeField] DieState _dieState;
+    [SerializeField] TeleportState _teleportState;
 
     #region getters e setters
     public IdleState idleState { get { return _idleState; } protected set { _idleState = value; } }
@@ -35,6 +36,7 @@ public class BringerStateMachine : EnemyStateMachine
         _attackState.SetUpState(this);
         _getHurtState.SetUpState(this);
         _dieState.SetUpState(this);
+        _teleportState.SetUpState(this);
 
         states.Add("Idle", _idleState);
         states.Add("Chase", _chaseState);
@@ -42,7 +44,7 @@ public class BringerStateMachine : EnemyStateMachine
         states.Add("Attack", _attackState);
         states.Add("GetHurt", _getHurtState);
         states.Add("Die", _dieState);
-
+        states.Add("Teleport", _teleportState);
         
         currentState = states["Idle"];
         baseState = states["Idle"];

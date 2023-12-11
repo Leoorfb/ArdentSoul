@@ -3,32 +3,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>
-/// Classe do estado do inimigo parado.
-/// </summary>
 [Serializable]
-public class IdleState : EnemyBaseState
+public class TeleportState : EnemyBaseState
 {
     public override void CheckExitCondition()
     {
-        _context.states["Cast"].TryEnterState();
-        if (_context.isSwitchingStates) return;
-
-        _context.states["Attack"].TryEnterState();
+        throw new System.NotImplementedException();
     }
 
     public override void EnterState()
     {
-        Debug.Log("PARADO");
+        throw new System.NotImplementedException();
     }
 
     public override void ExitState()
     {
-
+        throw new System.NotImplementedException();
     }
 
     public override void UpdateState()
     {
-        CheckExitCondition();
+        throw new System.NotImplementedException();
     }
+
 }

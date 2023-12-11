@@ -30,6 +30,7 @@ public class FireAttackState : EnemyBaseState
     public override void EnterState()
     {
         //Debug.Log("Atacou");
+
         hasAttackAnimationEnded = false;
         _context.enemy.animator.SetTrigger("Attack");
         _attackTimeCounter = 0;

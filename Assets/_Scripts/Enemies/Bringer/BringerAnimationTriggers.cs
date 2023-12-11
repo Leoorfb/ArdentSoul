@@ -26,4 +26,14 @@ public class BringerAnimationTriggers : MonoBehaviour
     {
         bringerStateMachine.getHurtState.hasAnimationEnded = true;
     }
+
+    private void CastTrigger()
+    {
+        bringerStateMachine.castState.OnCastAnimation();
+    }
+
+    private void CastEndTrigger()
+    {
+        bringerStateMachine.castState.OnCastAnimationEnd();
+    }
 }

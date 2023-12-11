@@ -44,6 +44,7 @@ public class Player : Singleton<Player>
 
     #region getters e setters
     public PlayerData playerData { get { return _playerData; } protected set { _playerData = value; } }
+    public PlayerStateMachine playerStateMachine { get { return _playerStateMachine; } protected set { _playerStateMachine = value; } }
     public float moveDirectionX { get { return moveDirection.x; } set { moveDirection.x = value; } }
     public float moveDirectionY { get { return moveDirection.y; } set { moveDirection.y = value; } }
     public bool isInvulnerable { get { return _isInvulnerable; } private set { _isInvulnerable = value; } }
@@ -57,11 +58,14 @@ public class Player : Singleton<Player>
     protected override void Awake()
     {
         base.Awake();
+
         _rigidbody2d = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
         playerInputActions = new PlayerInputActions();
         _playerStateMachine = GetComponent<PlayerStateMachine>();
+
+        playerData.health = playerData.maxHealth;
     }
 
     private void Update()
@@ -110,7 +114,10 @@ public class Player : Singleton<Player>
         if (playerData.health > 0)
             _playerStateMachine.SwitchState("Hurt");
         else
+        {
             _playerStateMachine.SwitchState("Death");
+            GameUI.Instance.OnPlayerDeath();
+        }
     }
 
     // check if is grounded

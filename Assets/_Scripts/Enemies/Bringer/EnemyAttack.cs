@@ -9,22 +9,47 @@ using UnityEngine;
 public class EnemyAttack : MonoBehaviour
 {
     public int damage = 0;
+    public Vector3 attackerPosition;
 
     [SerializeField] LayerMask playerLayer;
+    [SerializeField] LayerMask playerShieldLayer;
 
+    bool wasBlocked = false;
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (playerLayer == (1 << collision.gameObject.layer))
+
+        if (playerShieldLayer == (1 << collision.gameObject.layer))
         {
-            OnTouchPlayer(collision.gameObject.GetComponent<Player>());
+            OnTouchPlayerShield();
+            return;
+        }
+
+        if (!wasBlocked & playerLayer == (1 << collision.gameObject.layer))
+        {
+            OnTouchPlayer();
             return;
         }
     }
 
-    public void OnTouchPlayer(Player player)
+    public void OnTouchPlayer()
     {
-        player.TakeDamage(damage, transform.position.x);
+        Player.Instance.TakeDamage(damage, transform.position.x);
         Destroy(gameObject);
+    }
+    public void OnTouchPlayerShield()
+    {
+        if(Player.Instance.playerStateMachine.currentStateKey != "Block")
+        {
+            return;
+        }
+
+        if ((Player.Instance.isFacingLeft && Player.Instance.transform.position.x > attackerPosition.x)
+            || (!Player.Instance.isFacingLeft && Player.Instance.transform.position.x < attackerPosition.x))
+        {
+            Debug.Log("PLAYER BLOQUEOU");
+            wasBlocked = true;
+            Destroy(gameObject);
+        }
     }
 
     public void OnAnimationEnd()

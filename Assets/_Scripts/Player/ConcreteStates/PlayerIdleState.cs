@@ -24,7 +24,7 @@ public class PlayerIdleState : PlayerStateBase
         _context.playerJumpState.TryEnterState();
         if (_context.isSwitchingStates) return;
 
-        if (_context.moveInput.ReadValue<Vector2>() != Vector2.zero)
+        if (_context.moveInput.ReadValue<Vector2>().x != 0)
         {
             _context.SwitchState("Walk");
         }

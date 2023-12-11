@@ -25,7 +25,7 @@ public class AttackState : EnemyBaseState
 
     public override void CheckExitCondition()
     {
-        Debug.Log(hasAttackAnimationEnded);
+        //Debug.Log(hasAttackAnimationEnded);
 
         if (hasAttackAnimationEnded)
         {
@@ -35,7 +35,9 @@ public class AttackState : EnemyBaseState
 
     public override void EnterState()
     {
-        AudioManager.Instance.Play("WizardAttack");
+        Debug.Log("ATACANDO");
+        _context.enemy.animator.ResetTrigger("StopAttack");
+
         hasAttackAnimationEnded = false;
         _context.enemy.animator.SetTrigger("Attack");
         _attackTimeCounter = 0;
@@ -80,9 +82,11 @@ public class AttackState : EnemyBaseState
 
     public void AttackHitboxOn()
     {
+        AudioManager.Instance.Play("BossAttack");
         GameObject attack = GameObject.Instantiate(attackPrefab, attackSpawnPosition.position, attackSpawnPosition.rotation);
         enemyAttack = attack.GetComponent<EnemyAttack>();
         enemyAttack.damage = _context.enemy.damage;
+        enemyAttack.attackerPosition = _context.transform.position;
     }
 
     public void AttackHitboxOff()

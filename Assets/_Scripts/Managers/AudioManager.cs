@@ -29,7 +29,7 @@ public class Sound
 
     public SoundType type;
 
-    
+    [HideInInspector]
     public AudioSource source;
 }
 
@@ -147,7 +147,7 @@ public class AudioManager : PersistentSingleton<AudioManager>
     }
     private void OnSceneLoaded(Scene scene)
     {
-        Debug.Log(scene.name);
+        //Debug.Log(scene.name);
         switch(scene.name) 
         {
             case ("MainMenu"):

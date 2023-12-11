@@ -21,6 +21,7 @@ public class ChaseState : EnemyBaseState
 
     public override void EnterState()
     {
+        Debug.Log("PERSEGUINDO");
         _enemy = _context.enemy;
         _context.enemy.animator.SetBool("isWalking", true);
     }

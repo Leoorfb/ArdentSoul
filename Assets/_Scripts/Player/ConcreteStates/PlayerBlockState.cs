@@ -52,7 +52,6 @@ public class PlayerBlockState : PlayerStateBase
             player.animator.SetTrigger("Block");
             GameObject.Destroy(collision.gameObject);
             AudioManager.Instance.Play("PlayerBlock");
-
         }
     }
 

@@ -18,12 +18,13 @@ public class GetHurtState : EnemyBaseState
 
     public override void EnterState()
     {
+        Debug.Log("MACHUDADO");
+
         invulnerabilityCounter = 0f;
         _context.enemy.isInvulnerable = true;
 
         if (hasAnimation)
         {
-            Debug.Log("ta machucado");
             _context.enemy.animator.SetTrigger("Hurt");
             hasAnimationEnded = false;
             return;
