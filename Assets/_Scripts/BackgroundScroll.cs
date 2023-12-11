@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Classe controla o background do jogo, permitindo o parallax.
+/// </summary>
 public class BackgroundScroll : MonoBehaviour
 {
     [SerializeField] float scrollSpeedX = 1f;

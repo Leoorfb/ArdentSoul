@@ -3,6 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Classe do estado de andar do player.
+/// Contem as variaveis e as funções relacionadas ao andar do player
+/// </summary>
 [Serializable]
 public class PlayerWalkState : PlayerStateBase
 {

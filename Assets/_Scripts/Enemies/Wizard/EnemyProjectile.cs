@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Classe que controla o projétil inimigo.
+/// Contem as variaveis e as funções essenciais do projétil
+/// </summary>
 public class EnemyProjectile : MonoBehaviour
 {
     public int damage = 0;

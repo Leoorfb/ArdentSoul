@@ -4,6 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+
+/// <summary>
+/// Classe do estado de bloqueio do player.
+/// Contem as variaveis e as funções relacionadas ao bloqueio do player
+/// </summary>
 [Serializable]
 public class PlayerBlockState : PlayerStateBase
 {
@@ -46,6 +51,8 @@ public class PlayerBlockState : PlayerStateBase
         {
             player.animator.SetTrigger("Block");
             GameObject.Destroy(collision.gameObject);
+            AudioManager.Instance.Play("PlayerBlock");
+
         }
     }
 

@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+/// <summary>
+/// Classe que controla a UI do Menu de pause.
+/// </summary>
 public class GamePauseMenuUI : MonoBehaviour
 {
     [SerializeField] GameObject configMenu;
@@ -35,15 +38,18 @@ public class GamePauseMenuUI : MonoBehaviour
     {
         pauseManager.UnpauseGame();
         SceneManager.LoadScene(0);
+        AudioManager.Instance.Play("MenuConfirm");
     }
     public void OnReturnButtonClick()
     {
         pauseManager.UnpauseGame();
         gameObject.SetActive(false);
+        AudioManager.Instance.Play("MenuConfirm");
     }
     public void OnConfigButtonClick()
     {
         configMenu.SetActive(true);
         mainPauseMenu.SetActive(false);
+        AudioManager.Instance.Play("MenuConfirm");
     }
 }

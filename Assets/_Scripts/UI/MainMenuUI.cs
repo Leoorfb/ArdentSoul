@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+/// <summary>
+/// Classe que controla a UI do Menu principal.
+/// </summary>
 public class MainMenuUI : MonoBehaviour
 {
     [SerializeField] GameObject ConfigMenu;
@@ -21,17 +24,21 @@ public class MainMenuUI : MonoBehaviour
 
     public void OnPlayButtonClick()
     {
+        AudioManager.Instance.Play("MenuConfirm");
         SceneManager.LoadScene(playSceneName);
     }
 
     public void OnConfigButtonClick()
     {
+        AudioManager.Instance.Play("MenuConfirm");
         ConfigMenu.SetActive(true);
         gameObject.SetActive(false);
     }
 
     public void OnQuitButtonClick()
     {
+        AudioManager.Instance.Play("MenuConfirm");
+
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #endif

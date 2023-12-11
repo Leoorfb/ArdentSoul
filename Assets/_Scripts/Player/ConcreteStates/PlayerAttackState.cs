@@ -4,6 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/// <summary>
+/// Classe do estado de ataque do player.
+/// Contem as variaveis e as funções relacionadas ao ataque do player
+/// </summary>
 [Serializable]
 public class PlayerAttackState : PlayerStateBase
 {
@@ -59,6 +63,7 @@ public class PlayerAttackState : PlayerStateBase
     public override void EnterState()
     {
         Attack();
+        AudioManager.Instance.Play("PlayerAttack");
     }
 
     public override void ExitState()

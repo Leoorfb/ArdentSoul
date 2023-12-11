@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Classe base para os gerenciadores os estados dos inimigos.
+/// Controla e define o estado dos inimigos
+/// </summary>
 public class EnemyStateMachine : StateManager
 {
     protected Enemy _enemy;

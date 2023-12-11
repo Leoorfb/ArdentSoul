@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Classe que gerencia os estados do Bringer of Death.
+/// Controla e define o estado do Bringer of Death
+/// </summary>
 public class BringerStateMachine : EnemyStateMachine
 {
     [SerializeField] IdleState _idleState;

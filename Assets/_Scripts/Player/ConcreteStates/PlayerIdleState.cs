@@ -3,6 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Classe do estado do player parado.
+/// Contem as variaveis e as funções relacionadas ao player parado
+/// </summary>
 [Serializable]
 public class PlayerIdleState : PlayerStateBase
 {
@@ -29,6 +33,7 @@ public class PlayerIdleState : PlayerStateBase
     public override void EnterState()
     {
         player.animator.SetInteger("AnimState", 0);
+        player.animator.Play("Idle");
     }
 
     public override void ExitState()

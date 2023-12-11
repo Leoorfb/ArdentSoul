@@ -3,6 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/// <summary>
+/// Classe do estado de morte do inimigo.
+/// Contem as variaveis e as funções relacionadas ao morte do inimigo
+/// </summary>
 [Serializable]
 public class DieState : EnemyBaseState
 {

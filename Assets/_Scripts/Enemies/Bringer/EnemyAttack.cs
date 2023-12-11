@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Classe que controla o ataque do inimigo.
+/// Contem as variaveis e as funções essenciais do ataque
+/// </summary>
 public class EnemyAttack : MonoBehaviour
 {
     public int damage = 0;

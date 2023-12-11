@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Classe para Gatilho de funções pela animação do Bringer of Death.
+/// </summary>
 public class BringerAnimationTriggers : MonoBehaviour
 {
     [SerializeField] BringerStateMachine bringerStateMachine;

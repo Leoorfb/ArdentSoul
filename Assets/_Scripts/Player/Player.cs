@@ -4,6 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/// <summary>
+/// Classe principal do player.
+/// Contem as variaveis e as funções essenciais do player
+/// </summary>
 public class Player : Singleton<Player>
 {
     [Header("Player Data")]
@@ -93,6 +97,9 @@ public class Player : Singleton<Player>
         playerData.health -= damage;
         _isInvulnerable = true;
         invulnerabilityCounter = 0;
+
+        // update ui
+        GameUI.Instance.UpdateHPText();
 
         // knockback
         moveDirectionY = hitKnockbackForce;

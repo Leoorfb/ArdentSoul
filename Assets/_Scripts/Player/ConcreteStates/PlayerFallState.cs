@@ -3,6 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Classe do estado de queda do player.
+/// Contem as variaveis e as funções relacionadas à queda do player
+/// </summary>
 [Serializable]
 public class PlayerFallState : PlayerStateBase
 {
@@ -30,6 +34,8 @@ public class PlayerFallState : PlayerStateBase
     public override void ExitState()
     {
         player.animator.SetFloat("AirSpeedY", 0);
+        AudioManager.Instance.Play("PlayerLand");
+
     }
 
     public override void UpdateState()

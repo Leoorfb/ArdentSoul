@@ -3,6 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Classe do estado de ataque a distância do inimigo.
+/// Contem as variaveis e as funções relacionadas ao ataque a distância do inimigo
+/// </summary>
 [Serializable]
 public class FireAttackState : EnemyBaseState
 {
@@ -58,6 +62,8 @@ public class FireAttackState : EnemyBaseState
 
     public void FireProjectile()
     {
+        AudioManager.Instance.Play("WizardAttack");
+
         GameObject projectile = GameObject.Instantiate(projectilePrefab, projectileSpawnPosition.position, projectileSpawnPosition.rotation);
         EnemyProjectile enemyProjectile = projectile.GetComponent<EnemyProjectile>();
         enemyProjectile.moveDirection = _context.enemy.isFacingRight ? Vector2.right : Vector2.left;

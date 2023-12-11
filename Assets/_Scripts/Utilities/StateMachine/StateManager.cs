@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Classe base para todos gerenciadores de estados.
+/// </summary>
 public abstract class StateManager : MonoBehaviour 
 {
     protected Dictionary<string, BaseState> _states = new Dictionary<string,BaseState>();
@@ -40,6 +43,7 @@ public abstract class StateManager : MonoBehaviour
     public void SwitchState()
     {
         SwitchState(baseState);
+        currentStateKey = "default";
     }
     public void SwitchState(string stateKey)
     {

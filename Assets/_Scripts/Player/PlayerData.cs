@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// ScriptableObject dos dados do player.
+/// Contem as variaveis principais do player
+/// </summary>
 [CreateAssetMenu(menuName = "PlayerData")]
 public class PlayerData : ScriptableObject
 {

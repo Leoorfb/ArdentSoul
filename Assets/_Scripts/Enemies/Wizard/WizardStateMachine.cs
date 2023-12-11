@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Classe que gerencia os estados do mago.
+/// Controla e define o estado do mago
+/// </summary>
 public class WizardStateMachine : EnemyStateMachine
 {
     [SerializeField] ProtectState _protectState;

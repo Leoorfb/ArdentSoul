@@ -3,6 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Classe do estado de proteger do inimigo.
+/// Contem as variaveis e as funções relacionadas a proteger do inimigo.
+/// O inimigo fica parado em um local e ataca quando o player se aproxima.
+/// </summary>
 [Serializable]
 public class ProtectState : EnemyBaseState
 {

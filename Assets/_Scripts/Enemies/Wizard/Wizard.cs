@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Classe principal do mago.
+/// Contem as variaveis e as funções essenciais do mago
+/// </summary>
 public class Wizard : Enemy
 {
     private void FixedUpdate()

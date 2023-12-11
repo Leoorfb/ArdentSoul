@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Classe principal do Bringer of Death.
+/// Contem as variaveis e as funções essenciais do Bringer of Death
+/// </summary>
 public class Bringer : Enemy
 {
     int timesDamaged = 0;

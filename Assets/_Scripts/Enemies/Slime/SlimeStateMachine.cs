@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Classe que gerencia os estados do slime.
+/// Controla e define o estado do slime
+/// </summary>
 public class SlimeStateMachine : EnemyStateMachine
 {
     [SerializeField] WanderState _wanderState;

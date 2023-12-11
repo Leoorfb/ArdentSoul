@@ -3,6 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Classe do estado do player machucado.
+/// Contem as variaveis e as funções relacionadas ao player do machucado
+/// </summary>
 [Serializable]
 public class PlayerHurtState : PlayerStateBase
 {
@@ -16,6 +20,7 @@ public class PlayerHurtState : PlayerStateBase
 
     public override void EnterState()
     {
+        AudioManager.Instance.Play("PlayerHurt");
         player.animator.SetTrigger("Hurt");
         isAnimationPlaying = true;
     }

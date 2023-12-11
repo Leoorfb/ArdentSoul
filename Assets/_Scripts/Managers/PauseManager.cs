@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Classe controla o pause do jogo.
+/// </summary>
 public class PauseManager : Singleton<PauseManager>
 {
 

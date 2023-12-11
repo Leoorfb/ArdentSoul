@@ -2,10 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [Serializable]
 public enum SoundType { Music, SFX };
 
+/// <summary>
+/// Classe que define um som para ser usado pelo AudioManager.
+/// </summary>
 [Serializable]
 public class Sound
 {
@@ -25,17 +29,20 @@ public class Sound
 
     public SoundType type;
 
-    [HideInInspector]
+    
     public AudioSource source;
 }
 
-public class AudioManager : Singleton<AudioManager>
+/// <summary>
+/// Classe que gerencia o audio do jogo.
+/// </summary>
+public class AudioManager : PersistentSingleton<AudioManager>
 {
     public Sound[] sounds;
     Sound currentMusic;
 
     public float mainVolume = 1;
-    public float musicVolume = 1;
+    public float musicVolume = .3f;
     public float effectsVolume = 1;
 
     protected override void Awake()
@@ -49,6 +56,8 @@ public class AudioManager : Singleton<AudioManager>
             sound.source.volume = sound.volume;
             sound.source.loop = sound.loop;
         }
+
+        UpdateVolumes();
     }
 
     public void Play(string name)
@@ -119,5 +128,57 @@ public class AudioManager : Singleton<AudioManager>
         {
             sound.source.volume = getVolume(sound.type);
         }
+    }
+
+    private void OnEnable()
+    {
+        OnSceneLoaded(SceneManager.GetActiveScene());
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode arg1)
+    {
+        OnSceneLoaded(scene);
+        //ReloadSoundsSource();
+    }
+    private void OnSceneLoaded(Scene scene)
+    {
+        Debug.Log(scene.name);
+        switch(scene.name) 
+        {
+            case ("MainMenu"):
+                Play("MenuMusic");
+                break;
+            case ("MAPA1"):
+                Play("SwampMusic");
+                break;
+            case ("MAPA2"):
+                Play("BossMusic");
+                break;
+        }
+    }
+
+    private void ReloadSoundsSource()
+    {
+        int index = 0;
+        foreach (AudioSource oldSource in gameObject.GetComponents<AudioSource>())
+        {
+            Destroy(oldSource);
+
+            sounds[index].source = gameObject.AddComponent<AudioSource>();
+            sounds[index].source.clip = sounds[index].clip;
+            sounds[index].source.volume = sounds[index].volume;
+            sounds[index].source.loop = sounds[index].loop;
+            index++;
+            Debug.Log(index + " " + sounds[index].source == null);
+            if (index >= sounds.Length)
+                return;
+        }
+
+
     }
 }

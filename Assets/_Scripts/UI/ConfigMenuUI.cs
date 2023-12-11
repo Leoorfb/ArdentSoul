@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Classe que controla a UI do Menu de configurações.
+/// </summary>
 public class ConfigMenuUI : MonoBehaviour
 {
     [SerializeField] GameObject ReturnMenu;
@@ -41,12 +44,13 @@ public class ConfigMenuUI : MonoBehaviour
     {
         audioManager.effectsVolume = value;
         audioManager.UpdateVolumes();
+        audioManager.Play("MenuConfirm");
     }
 
 
     public void OnReturnButtonClick()
     {
-
+        audioManager.Play("MenuConfirm");
         ReturnMenu.SetActive(true);
         gameObject.SetActive(false);
     }

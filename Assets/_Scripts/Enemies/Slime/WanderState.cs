@@ -3,6 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Classe do estado de vagar do inimigo.
+/// Contem as variaveis e as funções relacionadas a vagar do inimigo.
+/// O inimigo fica andandando de um lado pro outro.
+/// </summary>
 [Serializable]
 public class WanderState : EnemyBaseState
 {

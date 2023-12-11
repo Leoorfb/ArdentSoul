@@ -4,6 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/// <summary>
+/// Classe do estado de rolamento do player.
+/// Contem as variaveis e as funções relacionadas ao rolamento do player
+/// </summary>
 [Serializable]
 public class PlayerRollState : PlayerStateBase
 {
@@ -32,6 +36,7 @@ public class PlayerRollState : PlayerStateBase
 
     public override void EnterState()
     {
+        AudioManager.Instance.Play("PlayerDodge");
         player.animator.SetTrigger("Roll");
         isAnimationPlaying = true;
     }

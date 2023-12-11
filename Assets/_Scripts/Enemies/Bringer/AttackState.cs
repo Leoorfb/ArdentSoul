@@ -3,6 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Classe do estado de ataque a corpo a corpo do inimigo.
+/// Contem as variaveis e as funções relacionadas ao ataque corpo a corpo do inimigo
+/// </summary>
 [Serializable]
 public class AttackState : EnemyBaseState
 {
@@ -21,6 +25,8 @@ public class AttackState : EnemyBaseState
 
     public override void CheckExitCondition()
     {
+        Debug.Log(hasAttackAnimationEnded);
+
         if (hasAttackAnimationEnded)
         {
             _context.SwitchState();
@@ -29,7 +35,7 @@ public class AttackState : EnemyBaseState
 
     public override void EnterState()
     {
-        Debug.Log("Atacou");
+        AudioManager.Instance.Play("WizardAttack");
         hasAttackAnimationEnded = false;
         _context.enemy.animator.SetTrigger("Attack");
         _attackTimeCounter = 0;
@@ -37,14 +43,14 @@ public class AttackState : EnemyBaseState
 
     public override void ExitState()
     {
-        _context.enemy.animator.ResetTrigger("StopAttack");
         _context.enemy.animator.SetTrigger("StopAttack");
+
+        AttackHitboxOff();
         hasAttackAnimationEnded = true;
         _attackTimeCounter = 0;
-        Debug.Log("Acabou Ataque");
     }
 
-public override void UpdateState()
+    public override void UpdateState()
     {
         CheckExitCondition();
     }
@@ -67,7 +73,6 @@ public override void UpdateState()
         }
         if (_context.currentStateKey != "Chase")
         {
-            Debug.Log("Muito Longe para atacar");
             _context.SwitchState("Chase");
         }
 

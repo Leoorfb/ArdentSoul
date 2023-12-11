@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/// <summary>
+/// Classe que gerencia os estados do player.
+/// Controla e define o estado do player
+/// </summary>
 public class PlayerStateMachine : StateManager
 {
     [SerializeField] PlayerIdleState _playerIdleState;

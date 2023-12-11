@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 935311721856409621}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.23, y: -0.24, z: 0}
+  m_LocalPosition: {x: -1.351, y: -0.24000001, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -87,6 +87,7 @@ MonoBehaviour:
     m_Bits: 256
   _moveSpeed: 3
   _initialPosition: {x: 0, y: 0}
+  isInvulnerable: 0
   _animator: {fileID: 1834206897510005812}
 --- !u!114 &378420393090406226
 MonoBehaviour:
@@ -110,6 +111,8 @@ MonoBehaviour:
   _getHurtState:
     invulnerabilityTime: 0.2
     invulnerabilityColor: {r: 1, g: 1, b: 1, a: 1}
+    hasAnimation: 1
+    hasAnimationEnded: 0
   _dieState:
     isDestroyOnAnimationEnd: 0
     deathDestroyTime: 1
@@ -145,7 +148,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 1.1395683, y: -0.57747626}
+  m_Offset: {x: 0, y: -0.58}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -196,6 +199,7 @@ GameObject:
   - component: {fileID: 6428812039832426232}
   - component: {fileID: 6886226923693064437}
   - component: {fileID: 1834206897510005812}
+  - component: {fileID: 187498293177196449}
   m_Layer: 7
   m_Name: Visuals
   m_TagString: Untagged
@@ -212,7 +216,7 @@ Transform:
   m_GameObject: {fileID: 5788472047004514214}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -1.132, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -291,3 +295,16 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &187498293177196449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5788472047004514214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 884d81f33e795bf47893b7a54d55b6ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bringerStateMachine: {fileID: 378420393090406226}

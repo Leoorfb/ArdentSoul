@@ -3,6 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Classe do estado do inimigo machucado.
+/// Contem as variaveis e as funções relacionadas ao inimigo do machucado
+/// </summary>
 [Serializable]
 public class GetHurtState : EnemyBaseState
 {
@@ -19,6 +23,7 @@ public class GetHurtState : EnemyBaseState
 
         if (hasAnimation)
         {
+            Debug.Log("ta machucado");
             _context.enemy.animator.SetTrigger("Hurt");
             hasAnimationEnded = false;
             return;
@@ -30,7 +35,7 @@ public class GetHurtState : EnemyBaseState
     public override void ExitState()
     {
         _context.enemy.isInvulnerable = false;
-
+        Debug.Log("não ta mais machucado");
         if (hasAnimation)
         {
             return;
@@ -48,6 +53,7 @@ public class GetHurtState : EnemyBaseState
     {
         if (hasAnimation & hasAnimationEnded)
         {
+            Debug.Log("TERMINOU ANIMAÇÃO MACHUCADO");
             _context.SwitchState();
         }
 
@@ -71,7 +77,7 @@ public class GetHurtState : EnemyBaseState
     {
         if (invulnerabilityCounter > invulnerabilityTime)
         {
-            _context.SwitchState(this);
+            _context.SwitchState("GetHurt");
         }
     }
 }

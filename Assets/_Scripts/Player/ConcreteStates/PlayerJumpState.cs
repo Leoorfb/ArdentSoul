@@ -4,6 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/// <summary>
+/// Classe do estado de pulo do player.
+/// Contem as variaveis e as funções relacionadas ao pulo do player
+/// </summary>
 [Serializable]
 public class PlayerJumpState : PlayerStateBase
 {
@@ -26,17 +30,18 @@ public class PlayerJumpState : PlayerStateBase
     {
         _context.playerFallState.TryEnterState();
         if (_context.isSwitchingStates) return;
-        /*
-        if (player.isGrounded)
+        
+        if (player.isGrounded & player.moveDirectionY == 0)
         {
             _context.SwitchState("Idle");
         }
-        */
     }
 
     public override void EnterState()
     {
         Jump();
+        AudioManager.Instance.Play("PlayerJump");
+
     }
 
     public override void ExitState()
