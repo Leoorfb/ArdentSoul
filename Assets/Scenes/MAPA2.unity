@@ -3516,6 +3516,37 @@ Transform:
   - {fileID: 1706387515}
   m_Father: {fileID: 1791901368}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &525208750
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 525208751}
+  m_Layer: 0
+  m_Name: BringerTeleportPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &525208751
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 525208750}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 30.05, y: 5.92, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1727938693}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &571986338
 GameObject:
   m_ObjectHideFlags: 0
@@ -5386,6 +5417,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 478926900}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &1486953941 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 6886226923693064437, guid: 4654900a501f79e40bfa85da4a25c1e9, type: 3}
+  m_PrefabInstance: {fileID: 1862776394341561522}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1535091069
 GameObject:
   m_ObjectHideFlags: 0
@@ -5555,6 +5591,7 @@ Transform:
   - {fileID: 1332185770}
   - {fileID: 586449723}
   - {fileID: 1791901368}
+  - {fileID: 525208751}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1769061464
@@ -27845,6 +27882,10 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 378420393090406226, guid: 4654900a501f79e40bfa85da4a25c1e9, type: 3}
+      propertyPath: _teleportState.teleportPosition
+      value: 
+      objectReference: {fileID: 525208751}
+    - target: {fileID: 378420393090406226, guid: 4654900a501f79e40bfa85da4a25c1e9, type: 3}
       propertyPath: _castState.lowPatterns.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -27856,6 +27897,30 @@ PrefabInstance:
       propertyPath: _castState.lowPatterns.Array.data[1]
       value: 
       objectReference: {fileID: 1769061465}
+    - target: {fileID: 378420393090406226, guid: 4654900a501f79e40bfa85da4a25c1e9, type: 3}
+      propertyPath: _getHurtState.invulnerabilityColor.a
+      value: 0.8235294
+      objectReference: {fileID: 0}
+    - target: {fileID: 378420393090406226, guid: 4654900a501f79e40bfa85da4a25c1e9, type: 3}
+      propertyPath: _getHurtState.invulnerabilityColor.b
+      value: 0.5471698
+      objectReference: {fileID: 0}
+    - target: {fileID: 378420393090406226, guid: 4654900a501f79e40bfa85da4a25c1e9, type: 3}
+      propertyPath: _getHurtState.invulnerabilityColor.g
+      value: 0.5471698
+      objectReference: {fileID: 0}
+    - target: {fileID: 378420393090406226, guid: 4654900a501f79e40bfa85da4a25c1e9, type: 3}
+      propertyPath: _getHurtState.invulnerabilityColor.r
+      value: 0.5471698
+      objectReference: {fileID: 0}
+    - target: {fileID: 1109655070892035859, guid: 4654900a501f79e40bfa85da4a25c1e9, type: 3}
+      propertyPath: _health
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 1109655070892035859, guid: 4654900a501f79e40bfa85da4a25c1e9, type: 3}
+      propertyPath: _spriteRenderer
+      value: 
+      objectReference: {fileID: 1486953941}
     - target: {fileID: 2783440640793536321, guid: 4654900a501f79e40bfa85da4a25c1e9, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
@@ -27870,11 +27935,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2783440640793536321, guid: 4654900a501f79e40bfa85da4a25c1e9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 37.14
+      value: 37.49
       objectReference: {fileID: 0}
     - target: {fileID: 2783440640793536321, guid: 4654900a501f79e40bfa85da4a25c1e9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.56
+      value: 2.42
       objectReference: {fileID: 0}
     - target: {fileID: 2783440640793536321, guid: 4654900a501f79e40bfa85da4a25c1e9, type: 3}
       propertyPath: m_LocalPosition.z

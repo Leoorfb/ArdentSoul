@@ -36,4 +36,13 @@ public class BringerAnimationTriggers : MonoBehaviour
     {
         bringerStateMachine.castState.OnCastAnimationEnd();
     }
+    
+    private void TeleportTrigger()
+    {
+        bringerStateMachine.teleportState.Teleport();
+    }
+    private void TeleportEndTrigger()
+    {
+        bringerStateMachine.teleportState.hasAnimationEnded = true;
+    }
 }

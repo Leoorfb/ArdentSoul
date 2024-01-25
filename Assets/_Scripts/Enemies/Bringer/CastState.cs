@@ -3,6 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Classe do estado de ataque de magia do inimigo.
+/// Contem as variaveis e as funções relacionadas ao ataque de magia do inimigo
+/// </summary>
 [Serializable]
 public class CastState : EnemyBaseState
 {
@@ -14,6 +18,12 @@ public class CastState : EnemyBaseState
     float _highCastCounter = 0;
     public bool canHighCast = false;
 
+    float _lastCastCounter = 0;
+    float _minCastDelay = 1;
+    bool animationTriggered = false;
+
+    int castIndex = 0;
+
     Player player;
 
     [Header("Cast Patterns")]
@@ -22,10 +32,15 @@ public class CastState : EnemyBaseState
 
     public override void CheckExitCondition()
     {
-        if (hasFinishedCasting)
+        if (!hasFinishedCasting) return;
+
+        if (!canHighCast && castIndex < lowPatterns.Length)
         {
-            _context.SwitchState();
+            _context.SwitchState(this);
+            return;
         }
+        castIndex = 0;
+        _context.SwitchState();
     }
 
     public override void SetUpState(EnemyStateMachine context)
@@ -37,18 +52,36 @@ public class CastState : EnemyBaseState
     public override void EnterState()
     {
         Debug.Log("INVOCANDO");
+        animationTriggered = false;
         hasFinishedCasting = false;
+
+        if (_lastCastCounter > _minCastDelay) 
+        {
+            TriggerAnimation();
+        }
+        
+    }
+
+    void TriggerAnimation()
+    {
+        animationTriggered = true;
         _context.enemy.animator.SetTrigger("Cast");
     }
 
     public override void ExitState()
     {
         _highCastCounter = _highCastTimerLimit;
+        _lastCastCounter = 0;
 
     }
 
     public override void UpdateState()
     {
+        if (!animationTriggered && _lastCastCounter > _minCastDelay)
+        {
+            TriggerAnimation();
+        }
+
         CheckExitCondition();
     }
 
@@ -62,7 +95,7 @@ public class CastState : EnemyBaseState
         {
             _highCastCounter = _highCastTimerLimit;
         }
-
+        _lastCastCounter += Time.deltaTime;
         canHighCast = _highCastCounter < 0;
     }
 
@@ -76,22 +109,22 @@ public class CastState : EnemyBaseState
 
     public void OnCastAnimation()
     {
+        AudioManager.Instance.Play("BossSpell");
+
         if (canHighCast)
         {
             CastSpells(highPattern);
             return;
         }
+
+        CastSpells(lowPatterns[castIndex]);
+        castIndex++;
     }
 
     public void OnCastAnimationEnd()
     {
-        if (canHighCast)
-        {
-            hasFinishedCasting = true;
-            return;
-        }
+        
         hasFinishedCasting = true;
-
     }
 
     public void CastSpells(Transform spellPattern)

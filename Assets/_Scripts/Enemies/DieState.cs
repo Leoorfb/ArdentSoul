@@ -18,7 +18,7 @@ public class DieState : EnemyBaseState
 
     public override void EnterState()
     {
-        Debug.Log("MORTO");
+        //Debug.Log("MORTO");
         _context.enemy.isInvulnerable = true;
         deathDestroyCounter = 0f;
         _context.enemy.animator.SetTrigger("Death");

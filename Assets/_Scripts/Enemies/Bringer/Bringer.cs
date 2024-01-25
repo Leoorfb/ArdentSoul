@@ -20,6 +20,7 @@ public class Bringer : Enemy
     {
         if (isInvulnerable)
             return;
+
         timesDamaged++;
         health -= damage;
 
@@ -30,9 +31,19 @@ public class Bringer : Enemy
             return;
         }
 
-        if (timesDamaged % 2 == 0)
+        if (timesDamaged % 4 == 0)
         {
-            // teleporta e casta spell
+            _stateMachine.SwitchState("Teleport");
+            GetHurtState hurtState = _stateMachine.states["GetHurt"] as GetHurtState;
+            hurtState.HurtSetUp();
+            return;
+        }
+
+        if (_stateMachine.currentStateKey == "Attack")
+        {
+            GetHurtState hurtState = _stateMachine.states["GetHurt"] as GetHurtState;
+            hurtState.HurtSetUp();
+            return;
         }
 
         _stateMachine.states["GetHurt"].TryEnterState();

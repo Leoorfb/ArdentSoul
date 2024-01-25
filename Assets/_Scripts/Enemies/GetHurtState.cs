@@ -18,10 +18,8 @@ public class GetHurtState : EnemyBaseState
 
     public override void EnterState()
     {
-        Debug.Log("MACHUDADO");
-
-        invulnerabilityCounter = 0f;
-        _context.enemy.isInvulnerable = true;
+        //Debug.Log("MACHUDADO");
+        HurtSetUp();
 
         if (hasAnimation)
         {
@@ -30,13 +28,12 @@ public class GetHurtState : EnemyBaseState
             return;
         }
 
-        _context.enemy.spriteRenderer.color = invulnerabilityColor;
     }
 
     public override void ExitState()
     {
         _context.enemy.isInvulnerable = false;
-        Debug.Log("não ta mais machucado");
+        //Debug.Log("não ta mais machucado");
         if (hasAnimation)
         {
             return;
@@ -54,11 +51,11 @@ public class GetHurtState : EnemyBaseState
     {
         if (hasAnimation & hasAnimationEnded)
         {
-            Debug.Log("TERMINOU ANIMAÇÃO MACHUCADO");
+            //Debug.Log("TERMINOU ANIMAÇÃO MACHUCADO");
             _context.SwitchState();
         }
 
-        if (!hasAnimation & invulnerabilityCounter >= invulnerabilityTime)
+        if (!hasAnimation & invulnerabilityCounter <= 0)
         {
             _context.SwitchState();
         }
@@ -68,9 +65,12 @@ public class GetHurtState : EnemyBaseState
     {
         if (_context.enemy.isInvulnerable)
         {
-            invulnerabilityCounter += Time.deltaTime;
-            if (invulnerabilityCounter >= invulnerabilityTime)
+            invulnerabilityCounter -= Time.deltaTime;
+            if (invulnerabilityCounter <= 0)
+            {
                 _context.enemy.isInvulnerable = false;
+                _context.enemy.spriteRenderer.color = Color.white;
+            }
         }
     }
 
@@ -80,5 +80,12 @@ public class GetHurtState : EnemyBaseState
         {
             _context.SwitchState("GetHurt");
         }
+    }
+
+    public void HurtSetUp()
+    {
+        _context.enemy.isInvulnerable = true;
+        invulnerabilityCounter = invulnerabilityTime;
+        _context.enemy.spriteRenderer.color = invulnerabilityColor;
     }
 }

@@ -3,27 +3,41 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Classe do estado de teleporte do inimigo.
+/// Contem as variaveis e as funções relacionadas ao teleporte do inimigo
+/// </summary>
 [Serializable]
 public class TeleportState : EnemyBaseState
 {
+    public bool hasAnimationEnded = false;
+    [SerializeField] private Transform teleportPosition;
+
     public override void CheckExitCondition()
     {
-        throw new System.NotImplementedException();
+        if (hasAnimationEnded)
+        {
+            _context.SwitchState("Cast");
+        }
     }
 
     public override void EnterState()
     {
-        throw new System.NotImplementedException();
+        hasAnimationEnded = false;
+        _context.enemy.animator.SetTrigger("Teleport");
     }
 
     public override void ExitState()
     {
-        throw new System.NotImplementedException();
     }
 
     public override void UpdateState()
     {
-        throw new System.NotImplementedException();
+        CheckExitCondition();
     }
 
+    public void Teleport()
+    {
+        _context.transform.position = teleportPosition.position;
+    }
 }

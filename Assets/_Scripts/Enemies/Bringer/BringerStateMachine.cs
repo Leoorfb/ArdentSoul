@@ -23,6 +23,7 @@ public class BringerStateMachine : EnemyStateMachine
     public AttackState attackState { get { return _attackState; } protected set { _attackState = value; } }
     public GetHurtState getHurtState { get { return _getHurtState; } protected set { _getHurtState = value; } }
     public DieState dieState { get { return _dieState; } protected set { _dieState = value; } }
+    public TeleportState teleportState { get { return _teleportState; } protected set { _teleportState = value; } }
     #endregion
 
     protected override void Awake()

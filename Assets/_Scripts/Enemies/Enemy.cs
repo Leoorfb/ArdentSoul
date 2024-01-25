@@ -18,7 +18,7 @@ public abstract class Enemy : MonoBehaviour
     protected Vector2 _moveDirection = Vector2.zero;
 
     protected Rigidbody2D _rigidbody2D;
-    protected SpriteRenderer _spriteRenderer;
+    [SerializeField] protected SpriteRenderer _spriteRenderer;
     [SerializeField] protected Animator _animator;
     protected EnemyStateMachine _stateMachine;
 
@@ -45,9 +45,10 @@ public abstract class Enemy : MonoBehaviour
     protected virtual void Awake()
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
-        _spriteRenderer = GetComponent<SpriteRenderer>();
         _stateMachine = GetComponent<EnemyStateMachine>();
 
+        if (_spriteRenderer == null)
+            _spriteRenderer = GetComponent<SpriteRenderer>();
         if (_animator == null)
             _animator = GetComponent<Animator>();
 
